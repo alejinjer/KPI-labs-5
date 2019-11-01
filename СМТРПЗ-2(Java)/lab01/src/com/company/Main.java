@@ -58,7 +58,7 @@ public class Main {
         jdbcOrderDao.add(order8);
 
         jdbcFacade.showDb();
-        jdbcFacade.deleteDb();
+//        jdbcFacade.deleteDb();
 
     }
 }
