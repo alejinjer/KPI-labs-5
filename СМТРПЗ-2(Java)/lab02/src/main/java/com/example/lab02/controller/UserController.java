@@ -3,63 +3,55 @@ package com.example.lab02.controller;
 import com.example.lab02.entity.User;
 import com.example.lab02.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class UserController {
 
     @Autowired
     public UserService userService;
 
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/users";
-    }
-
-    @GetMapping("users")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAll());
-        return "userList";
-    }
-
-    @GetMapping("/user/{id}")
-    public String getByIdUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        return "showUser";
-    }
-
-    @GetMapping("/addUser")
-    public String createUserPage() {
-        return "newUser";
-    }
-
-
-    @PostMapping("/addUser")
-    public String addUser(@ModelAttribute("user") User user) {
+    //create
+    @PostMapping("/users")
+    public User addUser(@RequestBody @RequestParam(value = "id", required = false) Long id,
+                        @RequestParam(value = "name", required = false) String name,
+                        @RequestParam(value = "address", required = false) String address) {
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setAddress(address);
         userService.add(user);
-        return "redirect:/users";
+        return user;
     }
 
-    @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute("user") User user) {
+    //read
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAll();
+    }
+
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getById(id);
+    }
+
+    //update
+    @PutMapping("/users/{id}")
+    public void updateUser(@PathVariable Long id,
+                           @RequestParam(value = "name", required = false) String name,
+                           @RequestParam(value = "address", required = false) String address) {
+        User user = userService.getById(id);
+        user.setName(name);
+        user.setAddress(address);
         userService.update(user);
-        return "redirect:/user/" + user.getId();
     }
 
-    @GetMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        return "updateUser";
-    }
-
-    @GetMapping("/remove/{id}")
-    public String removeUser(@PathVariable("id") Long id) {
+    //delete
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable Long id) {
         userService.remove(id);
-        return "redirect:/users";
     }
 }
+

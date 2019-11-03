@@ -11,11 +11,14 @@ public interface OrderService {
     //read
     List<Order> getAll();
 
-    Order getById(Long id);
+    List<Order> getAllByOrderNumber(Long order_number);
 
+    Order getById(Long id);
     //update
     void update(Order order);
 
     //delete
-    void remove(Long id);
+    void remove(Long order_number);
+
+    void removeById(Long id);
 }

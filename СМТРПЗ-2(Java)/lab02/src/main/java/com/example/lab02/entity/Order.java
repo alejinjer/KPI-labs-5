@@ -3,22 +3,23 @@ package com.example.lab02.entity;
 import java.util.Date;
 
 public class Order {
-    private Long orderNumber; //primary key
+    private Long order_number;
     private Long id_user;
-    private Date creationDate;
+    private Long id_product;
+    private int product_count;
+    private Date creation_date;
     private Long totalSum;
-    private Boolean payStatus;
 
     public Order() {
     }
 
 
-    public Long getOrderNumber() {
-        return orderNumber;
+    public Long getOrder_number() {
+        return order_number;
     }
 
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrder_number(Long order_number) {
+        this.order_number = order_number;
     }
 
     public Long getId_user() {
@@ -29,12 +30,12 @@ public class Order {
         this.id_user = id_user;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCreation_date() {
+        return creation_date;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setCreation_date(Date creation_date) {
+        this.creation_date = creation_date;
     }
 
     public Long getTotalSum() {
@@ -45,11 +46,19 @@ public class Order {
         this.totalSum = totalSum;
     }
 
-    public Boolean getPayStatus() {
-        return payStatus;
+    public Long getId_product() {
+        return id_product;
     }
 
-    public void setPayStatus(Boolean payStatus) {
-        this.payStatus = payStatus;
+    public void setId_product(Long id_product) {
+        this.id_product = id_product;
+    }
+
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
     }
 }
